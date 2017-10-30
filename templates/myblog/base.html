@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-left">
                             {% for nav in navs %}
                                 <li class="cl-effect-11"><a href="/{{ nav.link }}"
                                                             data-hover="{{ nav.name }}">{{ nav.name }}</a></li>
@@ -49,15 +49,16 @@
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </nav>
-                <div id="header-search">
-                    <a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
-                    <div id="search-form" class="search-form">
-                        <form role="search" method="get" id="searchform" action="#">
-                            <input type="search" placeholder="搜索" required>
-                            <button type="submit"><span class="ion-ios-search-strong"></span></button>
-                        </form>
-                    </div>
-                </div>
+
+{#                <div id="header-search">#}
+{#                    <a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>#}
+{#                    <div id="search-form" class="search-form">#}
+{#                        <form role="search" method="get" id="searchform" action="#">#}
+{#                            <input type="search" placeholder="搜索" required>#}
+{#                            <button type="submit"><span class="ion-ios-search-strong"></span></button>#}
+{#                        </form>#}
+{#                    </div>#}
+{#                </div>#}
             </div><!-- col-md-8 -->
         </div>
     </header>
