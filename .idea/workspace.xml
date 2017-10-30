@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="68719661-4632-4611-810e-6d4abdf7850d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mood/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mood/admin.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mood/apps.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mood/migrations/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mood/models.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mood/tests.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mood/views.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/myblog/migrations/0006_nav_num.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/myblog/sign.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/urls.py" afterPath="$PROJECT_DIR$/blog/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comments/__init__.py" afterPath="$PROJECT_DIR$/comments/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myblog/__init__.py" afterPath="$PROJECT_DIR$/myblog/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myblog/admin.py" afterPath="$PROJECT_DIR$/myblog/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myblog/feeds.py" afterPath="$PROJECT_DIR$/myblog/feeds.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myblog/models.py" afterPath="$PROJECT_DIR$/myblog/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myblog/views.py" afterPath="$PROJECT_DIR$/myblog/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -700,7 +683,14 @@
       <option name="project" value="LOCAL" />
       <updated>1509370482375</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="添加mood app">
+      <created>1509372331021</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1509372331021</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -784,7 +774,8 @@
     <MESSAGE value="listview模式替代函数" />
     <MESSAGE value="评论去掉邮箱和网址，添加关于页面，导航动态" />
     <MESSAGE value="完善关于页面，时间格式显示及时区问题，文章详情页面标签显示添加" />
-    <option name="LAST_COMMIT_MESSAGE" value="完善关于页面，时间格式显示及时区问题，文章详情页面标签显示添加" />
+    <MESSAGE value="添加mood app" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加mood app" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
