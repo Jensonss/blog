@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from .models import Post, Category, Tag, Nav
+from .models import Post, Category, Tag, Nav, Site
 import markdown
 from comments.forms import CommentForm
 from django.views.generic import ListView, DetailView
@@ -11,6 +11,24 @@ from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
 
 app_name = 'myblog'
+
+
+def getMarkDown():
+    """
+    返回markdown实例
+    :return:
+    """
+    md = markdown.Markdown(
+        extensions=[
+            'markdown.extensions.abbr',
+            'markdown.extensions.fenced_code',
+            'markdown.extensions.tables',
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+            TocExtension(slugify=slugify),
+            # 'markdown.extensions.toc',
+        ])
+    return md
 
 
 class AboutView(ListView):
@@ -23,8 +41,12 @@ class AboutView(ListView):
     def get_context_data(self, **kwargs):
         context = super(AboutView, self).get_context_data(**kwargs)
         navs = Nav.objects.all()
+        site = Site.objects.first()
+        md = getMarkDown()
+        site.me = md.convert(site.me)
         context.update({
             'navs': navs,
+            'site': site,
         })
         return context
 
@@ -34,16 +56,18 @@ class IndexView(ListView):
     template_name = app_name + '/index.html'
     context_object_name = 'post_list'
     # 分页，每页数量
-    paginate_by = 3
+    paginate_by = 10
 
     def get_queryset(self):
         return super(IndexView, self).get_queryset().order_by('-created_time')
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
+        site = Site.objects.first()
         navs = Nav.objects.all()
         context.update({
             'navs': navs,
+            'site': site,
         })
         return context
 
@@ -52,16 +76,19 @@ class CategoryView(ListView):
     model = Post
     template_name = app_name + '/index.html'
     context_object_name = 'post_list'
+    paginate_by = 10
 
     def get_queryset(self):
         cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
         return super(CategoryView, self).get_queryset().filter(category=cate)
 
     def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
+        context = super(CategoryView, self).get_context_data(**kwargs)
         navs = Nav.objects.all()
+        site = Site.objects.first()
         context.update({
             'navs': navs,
+            'site': site,
         })
         return context
 
@@ -70,16 +97,20 @@ class TagView(ListView):
     model = Post
     template_name = app_name + '/index.html'
     context_object_name = 'post_list'
+    paginate_by = 10
 
     def get_queryset(self):
         tag = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
         return super(TagView, self).get_queryset().filter(tags=tag)
 
     def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
+        context = super(TagView, self).get_context_data(**kwargs)
         navs = Nav.objects.all()
+        site = Site.objects.first()
+
         context.update({
             'navs': navs,
+            'site': site,
         })
         return context
 
@@ -88,12 +119,17 @@ class ArchiveView(ListView):
     model = Post
     template_name = app_name + '/index.html'
     context_object_name = 'post_list'
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
+        context = super(ArchiveView, self).get_context_data(**kwargs)
         navs = Nav.objects.all()
+        site = Site.objects.first()
+
         context.update({
             'navs': navs,
+            'site': site,
+
         })
         return context
 
@@ -127,13 +163,7 @@ class PostDetailView(DetailView):
     def get_object(self, queryset=None):
         # 覆写 get_object 方法的目的是因为需要对 post 的 body 值进行渲染
         post = super(PostDetailView, self).get_object(queryset=None)
-        md = markdown.Markdown(
-            extensions=[
-                'markdown.extensions.extra',
-                'markdown.extensions.codehilite',
-                TocExtension(slugify=slugify),
-                # 'markdown.extensions.toc',
-            ])
+        md = getMarkDown()
         post.body = md.convert(post.body)
         post.toc = md.toc;
         return post
@@ -144,9 +174,14 @@ class PostDetailView(DetailView):
         context = super(PostDetailView, self).get_context_data(**kwargs)
         form = CommentForm()
         comment_list = self.object.comment_set.all()
+        navs = Nav.objects.all()
+        site = Site.objects.first()
         context.update({
+            'navs': navs,
             'form': form,
-            'comment_list': comment_list
+            'comment_list': comment_list,
+            'site': site,
+
         })
         return context
 

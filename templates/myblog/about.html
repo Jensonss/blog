@@ -1,1 +1,8 @@
 {% extends 'myblog/base.html' %}
+
+{% block main %}
+
+    <div class="entry-content clearfix">
+        {{ site.me|safe }}
+    </div>
+{% endblock main %}

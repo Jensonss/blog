@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from .models import Post, Category, Tag, Nav
+from .models import Post, Category, Tag, Nav, Site
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -24,7 +24,13 @@ class NavAdmin(admin.ModelAdmin):
     fields = ('name', 'link',)
 
 
+class SiteAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    fields = ('title', 'me',)
+
+
 admin.site.register(Post, PostAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Nav, NavAdmin)
+admin.site.register(Site, SiteAdmin)

@@ -9,6 +9,17 @@ import markdown
 from django.utils.html import strip_tags
 
 
+class Site(models.Model):
+    """
+    网站信息
+    :title 网站title
+    :sign 签名
+    :
+    """
+    title = models.CharField(max_length=30)
+    me = models.TextField()
+
+
 class Nav(models.Model):
     """
     导航菜单配置
