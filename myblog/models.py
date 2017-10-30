@@ -28,6 +28,7 @@ class Nav(models.Model):
     """
     name = models.CharField(max_length=20)
     link = models.CharField(max_length=100)
+    num = models.IntegerField(blank=True, null=True)
 
 
 class Category(models.Model):

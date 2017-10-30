@@ -31,6 +31,14 @@ def getMarkDown():
     return md
 
 
+def getNavs():
+    """
+    按顺序获取导航按钮
+    :return:
+    """
+    return Nav.objects.all().order_by('num')
+
+
 class AboutView(ListView):
     model = Nav
     template_name = app_name + '/about.html'
@@ -40,12 +48,11 @@ class AboutView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(AboutView, self).get_context_data(**kwargs)
-        navs = Nav.objects.all()
         site = Site.objects.first()
         md = getMarkDown()
         site.me = md.convert(site.me)
         context.update({
-            'navs': navs,
+            'navs': getNavs(),
             'site': site,
         })
         return context
@@ -66,7 +73,7 @@ class IndexView(ListView):
         site = Site.objects.first()
         navs = Nav.objects.all()
         context.update({
-            'navs': navs,
+            'navs': getNavs(),
             'site': site,
         })
         return context
@@ -87,7 +94,7 @@ class CategoryView(ListView):
         navs = Nav.objects.all()
         site = Site.objects.first()
         context.update({
-            'navs': navs,
+            'navs': getNavs(),
             'site': site,
         })
         return context
@@ -109,7 +116,7 @@ class TagView(ListView):
         site = Site.objects.first()
 
         context.update({
-            'navs': navs,
+            'navs': getNavs(),
             'site': site,
         })
         return context
@@ -127,7 +134,7 @@ class ArchiveView(ListView):
         site = Site.objects.first()
 
         context.update({
-            'navs': navs,
+            'navs': getNavs(),
             'site': site,
 
         })
@@ -177,7 +184,7 @@ class PostDetailView(DetailView):
         navs = Nav.objects.all()
         site = Site.objects.first()
         context.update({
-            'navs': navs,
+            'navs': getNavs(),
             'form': form,
             'comment_list': comment_list,
             'site': site,

@@ -31,5 +31,6 @@ urlpatterns = [
     url(r'^comment/post/(?P<post_pk>[0-9]+)/$', commentView.post_comment, name='post_comment'),
     url(r'^all/rss/$', AllPostsRssFeed(), name='rss'),
     url(r'^about(.html)?$', blogView.AboutView.as_view(), name='about'),
+    url(r'^sign$', blogView.IndexView.as_view(), name='index'),
 
 ]

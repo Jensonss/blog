@@ -20,8 +20,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class NavAdmin(admin.ModelAdmin):
-    list_display = ['name', 'link']
-    fields = ('name', 'link',)
+    list_display = ['name', 'link', 'num']
+    fields = ('name', 'link', 'num',)
 
 
 class SiteAdmin(admin.ModelAdmin):
