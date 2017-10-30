@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from .models import Post, Category, Tag
+from .models import Post, Category, Tag, Nav
 import markdown
 from comments.forms import CommentForm
 from django.views.generic import ListView, DetailView
@@ -11,6 +11,22 @@ from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
 
 app_name = 'myblog'
+
+
+class AboutView(ListView):
+    model = Nav
+    template_name = app_name + '/about.html'
+
+    def get_queryset(self):
+        return super(AboutView, self).get_queryset()
+
+    def get_context_data(self, **kwargs):
+        context = super(AboutView, self).get_context_data(**kwargs)
+        navs = Nav.objects.all()
+        context.update({
+            'navs': navs,
+        })
+        return context
 
 
 class IndexView(ListView):
@@ -23,6 +39,14 @@ class IndexView(ListView):
     def get_queryset(self):
         return super(IndexView, self).get_queryset().order_by('-created_time')
 
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        navs = Nav.objects.all()
+        context.update({
+            'navs': navs,
+        })
+        return context
+
 
 class CategoryView(ListView):
     model = Post
@@ -32,6 +56,14 @@ class CategoryView(ListView):
     def get_queryset(self):
         cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
         return super(CategoryView, self).get_queryset().filter(category=cate)
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        navs = Nav.objects.all()
+        context.update({
+            'navs': navs,
+        })
+        return context
 
 
 class TagView(ListView):
@@ -43,11 +75,27 @@ class TagView(ListView):
         tag = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
         return super(TagView, self).get_queryset().filter(tags=tag)
 
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        navs = Nav.objects.all()
+        context.update({
+            'navs': navs,
+        })
+        return context
+
 
 class ArchiveView(ListView):
     model = Post
     template_name = app_name + '/index.html'
     context_object_name = 'post_list'
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        navs = Nav.objects.all()
+        context.update({
+            'navs': navs,
+        })
+        return context
 
     def get_queryset(self):
         year = self.kwargs.get('year')

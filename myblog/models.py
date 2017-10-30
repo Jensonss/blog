@@ -9,6 +9,16 @@ import markdown
 from django.utils.html import strip_tags
 
 
+class Nav(models.Model):
+    """
+    导航菜单配置
+    :name 导航名称
+    :link 导航跳转
+    """
+    name = models.CharField(max_length=20)
+    link = models.CharField(max_length=100)
+
+
 class Category(models.Model):
     """
     Django 要求模型必须继承 models.Model 类。
