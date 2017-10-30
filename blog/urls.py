@@ -13,24 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from  myblog import views as blogView
-from comments import views as commentView
+from mood import views as moodView
 from myblog.feeds import AllPostsRssFeed
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', blogView.IndexView.as_view(), name='index'),
-    url(r'^index$', blogView.IndexView.as_view(), name='index'),
-    url(r'^index.html$', blogView.IndexView.as_view(), name='index'),
-    url(r'^tag/(?P<pk>[0-9]+)/$', blogView.TagView.as_view(), name='tag'),
-    url(r'^post/(?P<pk>[0-9]+)/$', blogView.PostDetailView.as_view(), name='detail'),
-    url(r'^archives/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$', blogView.ArchiveView.as_view(), name='archives'),
-    url(r'^category/(?P<pk>[0-9]+)/$', blogView.CategoryView.as_view(), name='category'),
-    url(r'^comment/post/(?P<post_pk>[0-9]+)/$', commentView.post_comment, name='post_comment'),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'', include('myblog.urls')),
+    url(r'', include('mood.urls')),
     url(r'^all/rss/$', AllPostsRssFeed(), name='rss'),
     url(r'^about(.html)?$', blogView.AboutView.as_view(), name='about'),
-    url(r'^sign$', blogView.IndexView.as_view(), name='index'),
 
 ]

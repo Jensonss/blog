@@ -9,34 +9,9 @@ from comments.forms import CommentForm
 from django.views.generic import ListView, DetailView
 from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
+from blog.tool import Util
 
 app_name = 'myblog'
-
-
-def getMarkDown():
-    """
-    返回markdown实例
-    :return:
-    """
-    md = markdown.Markdown(
-        extensions=[
-            'markdown.extensions.abbr',
-            'markdown.extensions.fenced_code',
-            'markdown.extensions.tables',
-            'markdown.extensions.extra',
-            'markdown.extensions.codehilite',
-            TocExtension(slugify=slugify),
-            # 'markdown.extensions.toc',
-        ])
-    return md
-
-
-def getNavs():
-    """
-    按顺序获取导航按钮
-    :return:
-    """
-    return Nav.objects.all().order_by('num')
 
 
 class AboutView(ListView):
@@ -48,11 +23,11 @@ class AboutView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(AboutView, self).get_context_data(**kwargs)
-        site = Site.objects.first()
-        md = getMarkDown()
+        md = Util.getMarkDown()
+        site = Util.getSite()
         site.me = md.convert(site.me)
         context.update({
-            'navs': getNavs(),
+            'navs': Util.getNavs(),
             'site': site,
         })
         return context
@@ -70,10 +45,9 @@ class IndexView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        site = Site.objects.first()
-        navs = Nav.objects.all()
+        site = Util.getSite()
         context.update({
-            'navs': getNavs(),
+            'navs': Util.getNavs(),
             'site': site,
         })
         return context
@@ -91,10 +65,9 @@ class CategoryView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(CategoryView, self).get_context_data(**kwargs)
-        navs = Nav.objects.all()
-        site = Site.objects.first()
+        site = Util.getSite()
         context.update({
-            'navs': getNavs(),
+            'navs': Util.getNavs(),
             'site': site,
         })
         return context
@@ -112,11 +85,9 @@ class TagView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(TagView, self).get_context_data(**kwargs)
-        navs = Nav.objects.all()
-        site = Site.objects.first()
-
+        site = Util.getSite()
         context.update({
-            'navs': getNavs(),
+            'navs': Util.getNavs(),
             'site': site,
         })
         return context
@@ -130,11 +101,9 @@ class ArchiveView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ArchiveView, self).get_context_data(**kwargs)
-        navs = Nav.objects.all()
-        site = Site.objects.first()
-
+        site = Util.getSite()
         context.update({
-            'navs': getNavs(),
+            'navs': Util.getNavs(),
             'site': site,
 
         })
@@ -170,7 +139,7 @@ class PostDetailView(DetailView):
     def get_object(self, queryset=None):
         # 覆写 get_object 方法的目的是因为需要对 post 的 body 值进行渲染
         post = super(PostDetailView, self).get_object(queryset=None)
-        md = getMarkDown()
+        md = Util.getMarkDown()
         post.body = md.convert(post.body)
         post.toc = md.toc;
         return post
@@ -181,10 +150,9 @@ class PostDetailView(DetailView):
         context = super(PostDetailView, self).get_context_data(**kwargs)
         form = CommentForm()
         comment_list = self.object.comment_set.all()
-        navs = Nav.objects.all()
-        site = Site.objects.first()
+        site = Util.getSite()
         context.update({
-            'navs': getNavs(),
+            'navs': Util.getNavs(),
             'form': form,
             'comment_list': comment_list,
             'site': site,
