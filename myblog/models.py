@@ -4,9 +4,11 @@ from django.db import models
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from markdown.extensions.toc import TocExtension
 
 import markdown
 from django.utils.html import strip_tags
+from django.utils.text import slugify
 
 
 class Site(models.Model):
@@ -107,14 +109,20 @@ class Post(models.Model):
         # 如果没有填写摘要
         if not self.excerpt:
             # 首先实例化一个 Markdown 类，用于渲染 body 的文本
-            md = markdown.Markdown(extensions=[
-                'markdown.extensions.extra',
-                'markdown.extensions.codehilite',
-            ])
+            md = markdown.Markdown(
+                extensions=[
+                    'markdown.extensions.abbr',
+                    'markdown.extensions.fenced_code',
+                    'markdown.extensions.tables',
+                    'markdown.extensions.extra',
+                    'markdown.extensions.codehilite',
+                    TocExtension(slugify=slugify),
+                    # 'markdown.extensions.toc',
+                ])
             # 先将 Markdown 文本渲染成 HTML 文本
             # strip_tags 去掉 HTML 文本的全部 HTML 标签
             # 从文本摘取前 54 个字符赋给 excerpt
-            self.excerpt = strip_tags(md.convert(self.body))[:54]
+            self.excerpt = strip_tags(md.convert(self.body))[:180]
 
         # 调用父类的 save 方法将数据保存到数据库中
         super(Post, self).save(*args, **kwargs)

@@ -7,8 +7,8 @@ from .models import Post, Category, Tag, Nav, Site
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ['title', 'created_time', 'modified_time', 'category', 'author']
-
-
+    search_fields = ('title',)
+    list_filter = ('category',)
 class TagAdmin(admin.ModelAdmin):
     list_display = ['name']
     fields = ('name',)

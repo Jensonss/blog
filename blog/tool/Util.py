@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from myblog.models import Post, Category, Tag, Nav, Site
+from myblog.models import Nav, Site
 import markdown
 from comments.forms import CommentForm
 from django.views.generic import ListView, DetailView
