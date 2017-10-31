@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^archives/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$', blogView.ArchiveView.as_view(), name='archives'),
     url(r'^category/(?P<pk>[0-9]+)/$', blogView.CategoryView.as_view(), name='category'),
     url(r'^comment/post/(?P<post_pk>[0-9]+)/$', commentView.post_comment, name='post_comment'),
+    url(r'^search$', blogView.search, name='search'),
 
 ]

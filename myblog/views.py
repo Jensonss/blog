@@ -10,6 +10,7 @@ from django.views.generic import ListView, DetailView
 from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
 from blog.tool import Util
+from django.db.models import Q
 
 app_name = 'myblog'
 
@@ -159,6 +160,26 @@ class PostDetailView(DetailView):
 
         })
         return context
+
+
+def search(request):
+    """
+    关键词搜索
+    :param request:
+    :return:
+    """
+    key = request.GET.get('key')
+    error_msg = ''
+
+    if not key:
+        error_msg = "请输入关键词"
+        return render(request, app_name + '/index.html', {'error_msg': error_msg})
+
+    post_list = Post.objects.filter(Q(title__icontains=key) | Q(body__icontains=key))
+    return render(request, app_name + '/index.html', {'navs': Util.getNavs(),
+                                                      'site': Util.getSite(),
+                                                      'error_msg': error_msg,
+                                                      'post_list': post_list})
 
 
 def index(request):
