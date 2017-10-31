@@ -173,7 +173,9 @@ def search(request):
 
     if not key:
         error_msg = "请输入关键词"
-        return render(request, app_name + '/index.html', {'error_msg': error_msg})
+        return render(request, app_name + '/index.html', {'navs': Util.getNavs(),
+                                                          'site': Util.getSite(),
+                                                          'error_msg': error_msg})
 
     post_list = Post.objects.filter(Q(title__icontains=key) | Q(body__icontains=key))
     return render(request, app_name + '/index.html', {'navs': Util.getNavs(),

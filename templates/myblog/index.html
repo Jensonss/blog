@@ -4,8 +4,8 @@
 {% block main %}
     {% if error_msg %}
         <p>{{ error_msg }}</p>
-    {% endif %}
-    {% for post in post_list %}
+    {% else %}
+            {% for post in post_list %}
         <article class="post post-{{ post.pk }}">
             <header class="entry-header">
                 <h1 class="entry-title">
@@ -31,6 +31,8 @@
     {% empty %}
         <div class="no-post">暂时还没有发布的文章！</div>
     {% endfor %}
+    {% endif %}
+
     <!-- 简单分页效果
     <div class="pagination-simple">
         <a href="#">上一页</a>
