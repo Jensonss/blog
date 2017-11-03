@@ -5,8 +5,8 @@ from .models import Comment
 # Register your models here.
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['name', 'text', 'created_time']
-    fields = ('name', 'text',)
+    list_display = ['name', 'text', 'created_time','cid','pid','rid']
+    fields = ('name', 'text','pid','rid')
 
 
 admin.site.register(Comment, CommentAdmin)
