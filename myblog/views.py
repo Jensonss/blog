@@ -11,11 +11,6 @@ from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
 from blog.tool import Util
 from django.db.models import Q
-# import the logging library
-import logging
-
-# Get an instance of a logger
-logger = logging.getLogger('django')
 
 app_name = 'myblog'
 
@@ -155,21 +150,7 @@ class PostDetailView(DetailView):
         # 还要把评论表单、post 下的评论列表传递给模板。
         context = super(PostDetailView, self).get_context_data(**kwargs)
         form = CommentForm()
-        comment_list = self.object.comment_set.filter(pid=0)
-        if comment_list:
-            for comment in comment_list:  # 找出子评论
-                comment.sub_comments = self.object.comment_set.filter(pid=comment.cid)
-                if comment.sub_comments:
-                    for reply in comment.sub_comments:  # 找出回复人得信息
-                        logger.info("子评论：" + reply.name + "###cid" + str(reply.cid) + "###rid" + str(
-                            reply.rid) + "###pid" + str(reply.pid))
-                        list = self.object.comment_set.filter(cid=reply.rid)
-                        if list:
-                            reply.reply_ment = list[0]
-                            logger.info(
-                                "回复评论：" + reply.reply_ment.name + "###cid" + str(reply.reply_ment.cid) + "###rid" + str(
-                                    reply.reply_ment.rid) + "###pid" + str(reply.reply_ment.pid))
-
+        comment_list = self.object.comment_set.all()
         site = Util.getSite()
         context.update({
             'navs': Util.getNavs(),

@@ -18,7 +18,7 @@
         </div>
     </article>
     <section class="comment-area" id="comment-area">
-        {#        <hr>#}
+{#        <hr>#}
         <h3>发表评论</h3>
         <form action="{% url 'post_comment' post.pk %}" method="post" class="comment-form">
             {% csrf_token %}
@@ -43,34 +43,10 @@
                     <li class="comment-item">
                         <span class="nickname">{{ comment.name }}</span>
                         <time class="submit-date">{{ comment.created_time|date:"Y-m-d H:i" }}</time>
-                        <a href="javascript:void(0)" class="reply-label"
-                           date-cid="{{ comment.cid }}"
-                           date-pid="{{ comment.cid }}"
-                           date-rid="{{ comment.cid }}"
-                           date-name="{{ comment.name }}">回复</a>
-                        <div class="comment-content">
+                        <div class="text">
                             {{ comment.text }}
                         </div>
                     </li>
-                    {#子评论#}
-                    {% if  comment.sub_comments %}
-                        {% for sub_comment in comment.sub_comments %}
-                            <li class="sub-comment-item" style="margin-left: 2em;">
-                                <span class="nickname">{{ sub_comment.name }} 回复：{{ sub_comment.reply_ment.name }}</span>
-                                <time class="submit-date">{{ sub_comment.created_time|date:"Y-m-d H:i" }}</time>
-                                <a href="javascript:void(0)" class="reply-label"
-                                   date-cid="{{ sub_comment.cid }}"
-                                   date-pid="{{ comment.cid }}"
-                                   date-rd="{{ sub_comment.cid }}"
-                                   date-name="{{ sub_comment.name }}">回复</a>
-                                <div class="comment-content">
-                                    {{ sub_comment.text }}
-                                </div>
-                                <hr style="border:1px #cccccc dotted;">
-
-                            </li>
-                        {% endfor %}
-                    {% endif %}
                 {% empty %}
                     暂无评论
                 {% endfor %}
