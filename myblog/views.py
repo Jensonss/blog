@@ -62,7 +62,7 @@ class CategoryView(ListView):
 
     def get_queryset(self):
         cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
-        return super(CategoryView, self).get_queryset().filter(category=cate)
+        return super(CategoryView, self).get_queryset().filter(category=cate).order_by('-created_time')
 
     def get_context_data(self, **kwargs):
         context = super(CategoryView, self).get_context_data(**kwargs)
@@ -82,7 +82,7 @@ class TagView(ListView):
 
     def get_queryset(self):
         tag = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
-        return super(TagView, self).get_queryset().filter(tags=tag)
+        return super(TagView, self).get_queryset().filter(tags=tag).order_by('-created_time')
 
     def get_context_data(self, **kwargs):
         context = super(TagView, self).get_context_data(**kwargs)
@@ -114,7 +114,7 @@ class ArchiveView(ListView):
         year = self.kwargs.get('year')
         month = self.kwargs.get('month')
         return super(ArchiveView, self).get_queryset().filter(created_time__year=year,
-                                                              created_time__month=month)
+                                                              created_time__month=month).order_by('-created_time')
 
 
 class PostDetailView(DetailView):

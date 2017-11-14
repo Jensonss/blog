@@ -1,0 +1,7 @@
+{% extends 'myblog/base.html' %}
+
+{% block main %}
+    {% for dairy in dairy_list %}
+        <h4>{{ dairy.created_time|date:"Y-m-d H:i" }} : {{ dairy.body }}</h4>
+    {% endfor %}
+{% endblock main %}

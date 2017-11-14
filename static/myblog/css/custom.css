@@ -182,7 +182,7 @@ img {
     padding: 10px 0;
     color: #0972b4;
     text-shadow: none;
-    margin-top: 4.5px ;
+    margin-top: 4.5px;
     margin-bottom: 4.5px;
 }
 
@@ -909,4 +909,9 @@ img {
 
 .current a {
     color: red;
+}
+
+.dairy {
+    margin-top: 1em;
+    border-bottom:1px dashed darkgray;
 }

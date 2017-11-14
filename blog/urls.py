@@ -22,7 +22,7 @@ from myblog.feeds import AllPostsRssFeed
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('myblog.urls')),
-    url(r'', include('mood.urls')),
+    url(r'', include('dairy.urls')),
     url(r'^all/rss/$', AllPostsRssFeed(), name='rss'),
     url(r'^about(.html)?$', blogView.AboutView.as_view(), name='about'),
 

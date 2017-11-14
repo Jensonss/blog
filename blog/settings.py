@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'myblog',
     'comments',
     'mood',
+    'dairy',
 ]
 
 MIDDLEWARE = [
