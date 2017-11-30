@@ -14,7 +14,14 @@ from django.db.models import Q
 
 app_name = 'myblog'
 
-
+def vpn(request,param):
+    """
+    vpn页面
+    :param request:
+    :return:
+    """
+    return render(request, app_name + '/vpn.html', {'navs': Util.getNavs(),
+                                                      'site': Util.getSite()})
 class AboutView(ListView):
     model = Nav
     template_name = app_name + '/about.html'
@@ -160,6 +167,9 @@ class PostDetailView(DetailView):
 
         })
         return context
+
+
+
 
 
 def search(request):
