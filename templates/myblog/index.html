@@ -58,7 +58,12 @@
 {% endblock main %}
 {% block toc %}
     <aside class="col-md-4">
-
+        <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'search' %}">
+            <div class="form-group">
+                <input type="search" class="form-control" name="key"
+                       placeholder="Search">
+            </div>
+        </form>
         <div class="widget widget-recent-posts">
             <h3 class="widget-title">最新文章</h3>
             {% get_recent_posts as recent_post_list %}
